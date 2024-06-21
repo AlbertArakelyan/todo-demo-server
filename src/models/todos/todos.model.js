@@ -16,12 +16,8 @@ async function createTodo(todo) {
 }
 
 async function toggleTodo(id, userId) {
-  const todo = await Todo.find({ _id: id, userId });
-  todo.isCompleted = !todo.isCompleted;
-
-  await todo.save();
-
-  return todo;
+  const { isCompleted } = await Todo.findById(id);
+  return await Todo.findOneAndUpdate({ _id: id, userId }, { $set: { isCompleted: !isCompleted } }, { new: true });
 }
 
 async function deleteTodo(id) {
@@ -52,23 +48,35 @@ async function editTodo(id, todo) {
 
 async function getUserTodos(userId, isCompleted) {
   if (isCompleted) {
-    return await Todo.find({ userId, isCompleted: !!Number(isCompleted), isDeleted: false }).sort({ createdAt: -1 });
+    return await Todo.find({ userId, isCompleted: !!Number(isCompleted), isDeleted: false }, {
+      description: 0,
+      isDeleted: 0,
+    }).sort({ createdAt: -1 });
   }
 
-  return await Todo.find({ userId, isDeleted: false }).sort({ createdAt: -1 });
+  return await Todo.find({ userId, isDeleted: false }, {
+    description: 0,
+    isDeleted: 0,
+  }).sort({ createdAt: -1 });
 }
 
 async function getUserTodosPaginated(userId, skip, limit, isCompleted) {
   if (isCompleted) {
     return await Todo
-      .find({ userId, isCompleted: !!Number(isCompleted), isDeleted: false })
+      .find({ userId, isCompleted: !!Number(isCompleted), isDeleted: false }, {
+        description: 0,
+        isDeleted: 0,
+      })
       .skip(skip)
       .limit(limit)
       .sort({ createdAt: -1 });
   }
 
   return await Todo
-    .find({ userId, isDeleted: false })
+    .find({ userId, isDeleted: false }, {
+      description: 0,
+      isDeleted: 0,
+    })
     .skip(skip)
     .limit(limit)
     .sort({ createdAt: -1 });

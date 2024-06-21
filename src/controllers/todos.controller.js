@@ -137,7 +137,6 @@ async function httpPermanentlyDeleteTodo(req, res) {
     return res.status(httpStatuses.ok).json({
       success: true,
       data: {
-        ...deletedTodo,
         todoId,
         isPermanentlyDeleted: true,
       },
@@ -158,9 +157,9 @@ async function httpRestoreTodo(req, res) {
   try {
     const { todoId } = req.params;
 
-    const restoredTodo = await restoreTodo(todoId);
+    const restoredTodoId = await restoreTodo(todoId);
 
-    if (!restoredTodo) {
+    if (!restoredTodoId) {
       return res.status(httpStatuses.notFound).json({
         success: false,
         message: todoControllerMessages.todoNotFound,
@@ -170,7 +169,10 @@ async function httpRestoreTodo(req, res) {
 
     return res.status(httpStatuses.ok).json({
       success: true,
-      data: restoredTodo,
+      data: {
+        todoId: restoredTodoId,
+        isRestored: true,
+      },
       message: todoControllerMessages.todoRestored,
       statusCode: httpStatuses.ok,
     });

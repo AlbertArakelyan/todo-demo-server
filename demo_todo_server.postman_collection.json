@@ -1,0 +1,418 @@
+{
+	"info": {
+		"_postman_id": "70d9bd20-10c7-43db-a3f4-ce02d4d0d669",
+		"name": "Demo Todo Server",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32185084"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "Sign Up",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"fullName\": \"Albert Arakelyan\",\n    \"email\": \"albert5000@yopmail.com\",\n    \"password\": \"12345678\",\n    \"confirmPassword\": \"12345678\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL}}/users/sign-up",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"users",
+										"sign-up"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Sign In",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"albert5000@yopmail.com\",\n    \"password\": \"12345678\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{API_URL}}/users/sign-in",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"users",
+										"sign-in"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Verify Email",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{API_URL}}/users/verify-email/:token",
+									"host": [
+										"{{API_URL}}"
+									],
+									"path": [
+										"users",
+										"verify-email",
+										":token"
+									],
+									"variable": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NjcwNGI2ZjljYjMyYjM2YmUxZjgwNDMiLCJpYXQiOjE3MTg2MzUzNzV9.gpbSz8aYdLUosKYu7zXEWEIEgJXsm1fdUMDtGEWLPPk"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get User Data",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "{{ACCESS_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}/users/",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"users",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Todo",
+			"item": [
+				{
+					"name": "Create Todo",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ACCESS_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Buy Milk\",\n    \"description\": \"Buy Milk for 4.00$\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/todos",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"todos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Toggle Todo",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ACCESS_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/todos/:todoId",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"todos",
+								":todoId"
+							],
+							"variable": [
+								{
+									"key": "todoId",
+									"value": "667501ec0ef6e6f91c44a5af"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Todo",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ACCESS_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}/todos/:todoId",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"todos",
+								":todoId"
+							],
+							"variable": [
+								{
+									"key": "todoId",
+									"value": "667501ec0ef6e6f91c44a5af"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Todo Delete Permanently",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ACCESS_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}/todos/permanently/:todoId",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"todos",
+								"permanently",
+								":todoId"
+							],
+							"variable": [
+								{
+									"key": "todoId",
+									"value": "6675ceb8a6075ba0fbeafeb5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Restore Todo",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ACCESS_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}/todos/restore/:todoId",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"todos",
+								"restore",
+								":todoId"
+							],
+							"variable": [
+								{
+									"key": "todoId",
+									"value": "667501ec0ef6e6f91c44a5af"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Todo",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ACCESS_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Buy Milk 33\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_URL}}/todos/edit/:todoId",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"todos",
+								"edit",
+								":todoId"
+							],
+							"variable": [
+								{
+									"key": "todoId",
+									"value": "667501ec0ef6e6f91c44a5af"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Todos",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ACCESS_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}/todos",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"todos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Todos Paginated",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ACCESS_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}/todos/paginated?page=1&limit=10",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"todos",
+								"paginated"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Todo",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{ACCESS_TOKEN}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{API_URL}}/todos/:todoId",
+							"host": [
+								"{{API_URL}}"
+							],
+							"path": [
+								"todos",
+								":todoId"
+							],
+							"variable": [
+								{
+									"key": "todoId",
+									"value": "667501ec0ef6e6f91c44a5af"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
