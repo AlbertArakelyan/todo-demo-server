@@ -24,6 +24,8 @@ const todoControllerMessages = {
   todoCreated: 'Todo has been created',
   todoUpdated: 'Todo has been updated',
   todoDeleted: 'Todo has been deleted',
+  todoNotFound: 'Todo not found',
+  todoPermanentlyDeleted: 'Todo has been permanently deleted',
 };
 
 const smthWentWrong = 'Something went wrong';
